@@ -10,7 +10,7 @@ COMPR = ['zip','z','7z','rar','tar','gz','pkg','deb','rpm']
 INSTL = ['dmg','exe','iso']
 
 # Creating directories for where we want to store the downloaded files
-BASE_PATH = os.path.expanduser('~')
+BASE_PATH = os.path.join(os.path.expanduser('~'), 'Downloads')
 ORGANIZER_DIR = 'Downloads Organizer'
 DEST_DIRS = ['Music','Movies','Pictures','Documents','Applications','Other']
 
@@ -26,13 +26,13 @@ for d in DEST_DIRS:
         os.mkdir(dir_path)
 
 # Map files from downloads folder 
-DOWNLOADS_PATH = os.path.join(BASE_PATH, 'Downloads')
 files_mapping = collections.defaultdict(list)
-files_list = os.listdir(DOWNLOADS_PATH)
+files_list = os.listdir(BASE_PATH)
 
 for file_name in files_list:
-    file_ext = file_name.split('.')[-1]  # Get the last element after splitting
-    files_mapping[file_ext].append(file_name)
+    if file_name != ORGANIZER_DIR:  # Exclude the Downloads Organizer directory
+        file_ext = file_name.split('.')[-1]  # Get the last element after splitting
+        files_mapping[file_ext].append(file_name)
 
 pprint(files_mapping)
 
@@ -40,21 +40,21 @@ pprint(files_mapping)
 for f_ext, f_list in files_mapping.items():
     if f_ext in INSTL:
         for file in f_list:
-            os.rename(os.path.join(DOWNLOADS_PATH, file), os.path.join(organizer_path, 'Applications', file))
-            #print(os.path.join(DOWNLOADS_PATH, file))
+            os.rename(os.path.join(BASE_PATH, file), os.path.join(organizer_path, 'Applications', file))
+            #print(os.path.join(BASE_PATH, file))
             #print(os.path.join(organizer_path, 'Applications', file))
     elif f_ext in AUDIO:
         for file in f_list:
-            os.rename(os.path.join(DOWNLOADS_PATH, file), os.path.join(organizer_path, 'Music', file))
+            os.rename(os.path.join(BASE_PATH, file), os.path.join(organizer_path, 'Music', file))
     elif f_ext in VIDEO:
         for file in f_list:
-            os.rename(os.path.join(DOWNLOADS_PATH, file), os.path.join(organizer_path, 'Movies', file))
+            os.rename(os.path.join(BASE_PATH, file), os.path.join(organizer_path, 'Movies', file))
     elif f_ext in IMAGES:
         for file in f_list:
-            os.rename(os.path.join(DOWNLOADS_PATH, file), os.path.join(organizer_path, 'Pictures', file))
+            os.rename(os.path.join(BASE_PATH, file), os.path.join(organizer_path, 'Pictures', file))
     elif f_ext in DOCS:
         for file in f_list:
-            os.rename(os.path.join(DOWNLOADS_PATH, file), os.path.join(organizer_path, 'Documents', file))
+            os.rename(os.path.join(BASE_PATH, file), os.path.join(organizer_path, 'Documents', file))
     else:
         for file in f_list:
-            os.rename(os.path.join(DOWNLOADS_PATH, file), os.path.join(organizer_path, 'Other', file))
+            os.rename(os.path.join(BASE_PATH, file), os.path.join(organizer_path, 'Other', file))
