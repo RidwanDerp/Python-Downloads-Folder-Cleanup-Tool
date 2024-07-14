@@ -15,7 +15,7 @@ INSTL = ['dmg','exe','iso']
 #creating directories for where we want to store the downloaded files
 
 BASE_PATH = os.path.expanduser('~')
-DEST_DIRS = ['Downloads Organizer']
+DEST_DIRS = ['Music','Movies','Pictures','Documents','Applications','Other']
 
 
 for d in DEST_DIRS:
@@ -38,9 +38,36 @@ for file_name in files_list:
 
 pprint(files_mapping)
 
+#move all files with to a target destination folder in accordance with their file type
+
+for f_ext, f_list in files_mapping.items():
 
 
+    if f_ext in INSTL:
+        for file in f_list:
+            os.rename(os.path.join(DOWNLOADS_PATH, file), os.path.join(BASE_PATH, 'Applications', file))
+            #print(os.path.join(DOWNLOADS_PATH, file))
+            #print(os.path.join(BASE_PATH, 'Applications', file))
+    
+    elif f_ext in AUDIO:
+        for file in f_list:
+            os.rename(os.path.join(DOWNLOADS_PATH, file), os.path.join(BASE_PATH, 'Music', file))
 
+    elif f_ext in VIDEO:
+        for file in f_list:
+            os.rename(os.path.join(DOWNLOADS_PATH, file), os.path.join(BASE_PATH, 'Movies', file))
+
+    elif f_ext in IMAGES:
+        for file in f_list:
+            os.rename(os.path.join(DOWNLOADS_PATH, file), os.path.join(BASE_PATH, 'Pictures', file))
+
+    elif f_ext in DOCS:
+        for file in f_list:
+            os.rename(os.path.join(DOWNLOADS_PATH, file), os.path.join(BASE_PATH, 'Documents', file))
+
+    else:
+        for file in f_list:
+            os.rename(os.path.join(DOWNLOADS_PATH, file), os.path.join(BASE_PATH, 'Other', file))
 
 
 
