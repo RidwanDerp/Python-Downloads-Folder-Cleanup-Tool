@@ -42,7 +42,7 @@ for f_ext, f_list in files_mapping.items():
         for file in f_list:
             os.rename(os.path.join(BASE_PATH, file), os.path.join(organizer_path, 'Applications', file))
             #print(os.path.join(BASE_PATH, file))
-            #print(os.path.join(organizer_path, 'Applications', file))
+            #print(os.path.join(organizer_path, 'Applications', file))          
     elif f_ext in AUDIO:
         for file in f_list:
             os.rename(os.path.join(BASE_PATH, file), os.path.join(organizer_path, 'Music', file))
